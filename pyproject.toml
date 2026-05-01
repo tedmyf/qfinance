@@ -1,0 +1,82 @@
+[project]
+name = "tapt"
+version = "0.1.0"
+description = "Tax-Aware Portfolio Toolkit: factor-based portfolio optimization with integrated tax-loss harvesting"
+authors = [{name = "Ted Ma", email = "yufei.ma23@gmail.com"}]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+keywords = ["portfolio-optimization", "tax-loss-harvesting", "direct-indexing", "factor-models", "cvxpy"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scipy>=1.11",
+    "cvxpy>=1.4",
+    "yfinance>=0.2.40",
+    "matplotlib>=3.7",
+    "seaborn>=0.13",
+    "pyarrow>=14.0",
+    "statsmodels>=0.14",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "ruff>=0.1",
+    "black>=23.0",
+    "mypy>=1.7",
+    "pre-commit>=3.5",
+    "jupyter>=1.0",
+    "ipykernel>=6.25",
+]
+
+[project.urls]
+Homepage = "https://github.com/tedmyf/tax-aware-portfolio-toolkit"
+Repository = "https://github.com/tedmyf/tax-aware-portfolio-toolkit"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["tapt"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "B", "UP", "SIM", "RUF"]
+ignore = ["E501"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = false
+ignore_missing_imports = true
+warn_unused_ignores = true
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short --cov=tapt --cov-report=term-missing --cov-report=html"
+markers = [
+    "integration: tests that hit external data sources (deselect with '-m \"not integration\"')",
+    "slow: long-running tests",
+]
