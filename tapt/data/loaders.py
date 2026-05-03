@@ -288,7 +288,7 @@ def compute_returns(
     Parameters
     ----------
     prices : pd.DataFrame
-        Wide price frame (dates × tickers).
+        Wide price frame (dates x tickers).
     method : str
         ``"simple"`` for arithmetic returns, ``"log"`` for log returns.
     as_of : str or Timestamp, optional

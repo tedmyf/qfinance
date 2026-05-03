@@ -13,11 +13,11 @@ import pandas as pd
 import pytest
 
 from tapt.data.loaders import (
-    _parse_french_csv,
     compute_returns,
     load_equity_prices,
     load_fama_french_factors,
     load_risk_free_rate,
+    _parse_french_csv,
 )
 
 
@@ -61,16 +61,14 @@ class TestLoadEquityPrices:
     @patch("yfinance.download")
     def test_empty_response_raises(self, mock_download, tmp_cache_dir):
         mock_download.return_value = pd.DataFrame()
-        with patch("tapt.data.cache.DEFAULT_CACHE_DIR", tmp_cache_dir):
-            with pytest.raises(ValueError, match="No price data"):
-                load_equity_prices(["FAKE"], "2024-01-01", "2024-01-10", use_cache=False)
+        with patch("tapt.data.cache.DEFAULT_CACHE_DIR", tmp_cache_dir), pytest.raises(ValueError, match="No price data"):
+            load_equity_prices(["FAKE"], "2024-01-01", "2024-01-10", use_cache=False)
 
     def test_invalid_date_range_raises(self, tmp_cache_dir):
-        with patch("tapt.data.cache.DEFAULT_CACHE_DIR", tmp_cache_dir):
-            with pytest.raises(ValueError, match="must be before"):
-                load_equity_prices(
-                    ["AAPL"], "2024-12-31", "2024-01-01", use_cache=False
-                )
+        with patch("tapt.data.cache.DEFAULT_CACHE_DIR", tmp_cache_dir), pytest.raises(ValueError, match="must be before"):
+            load_equity_prices(
+                ["AAPL"], "2024-12-31", "2024-01-01", use_cache=False
+            )
 
     @patch("yfinance.download")
     def test_as_of_truncates_result(self, mock_download, tmp_cache_dir):
@@ -154,13 +152,12 @@ class TestParseFrenchCSV:
 
 class TestLoadFamaFrenchFactors:
     def test_invalid_combination_raises(self, tmp_cache_dir):
-        with patch("tapt.data.cache.DEFAULT_CACHE_DIR", tmp_cache_dir):
-            with pytest.raises(ValueError, match="Unsupported"):
-                load_fama_french_factors(
-                    model="3factor",
-                    frequency="weekly",  # type: ignore
-                    use_cache=False,
-                )
+        with patch("tapt.data.cache.DEFAULT_CACHE_DIR", tmp_cache_dir), pytest.raises(ValueError, match="Unsupported"):
+            load_fama_french_factors(
+                model="3factor",
+                frequency="weekly",  # type: ignore
+                use_cache=False,
+            )
 
     @patch("tapt.data.loaders._download_zipped_csv")
     def test_converts_percent_to_decimal(self, mock_download, tmp_cache_dir):

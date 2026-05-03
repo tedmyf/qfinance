@@ -54,7 +54,7 @@ class PointInTimeFrame:
             else:
                 datetime_levels = [
                     name
-                    for name, level in zip(df.index.names, df.index.levels)
+                    for name, level in zip(df.index.names, df.index.levels, strict=False)
                     if isinstance(level, pd.DatetimeIndex)
                 ]
                 if not datetime_levels:
