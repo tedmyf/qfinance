@@ -55,7 +55,7 @@ htmlcov/
 Thumbs.db
 
 # Project-specific: cached data
-data/
+/data/
 *.parquet
 *.h5
 !tests/fixtures/*.parquet
