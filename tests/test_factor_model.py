@@ -13,8 +13,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from tapt.factors import FactorModelFit, estimate_factor_model, to_excess_returns
-
+from tapt.factors import estimate_factor_model, to_excess_returns
 
 # ---------------------------------------------------------------------------
 # Synthetic data generators

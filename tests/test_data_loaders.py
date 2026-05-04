@@ -13,13 +13,12 @@ import pandas as pd
 import pytest
 
 from tapt.data.loaders import (
+    _parse_french_csv,
     compute_returns,
     load_equity_prices,
     load_fama_french_factors,
     load_risk_free_rate,
-    _parse_french_csv,
 )
-
 
 # ---------------------------------------------------------------------------
 # yfinance loader (mocked)

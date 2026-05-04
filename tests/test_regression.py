@@ -49,9 +49,9 @@ class TestOLSBulk:
     def test_intercept_is_recovered(self):
         """When X has a constant column, the intercept coefficient is recovered."""
         rng = np.random.default_rng(7)
-        T, N = 500, 3
+        T = 500
         true_alpha = np.array([0.5, -1.2, 2.0])
-        true_beta = np.array([[1.0, 0.5, -0.5]])  # 1 x N
+        true_beta = np.array([[1.0, 0.5, -0.5]])  # 1 x N=3
         X_features = rng.normal(0, 1, size=(T, 1))
         X = np.column_stack([np.ones(T), X_features])
         Y = X @ np.vstack([true_alpha, true_beta])
